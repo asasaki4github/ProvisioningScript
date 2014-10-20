@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Disable tunnelled clear text passwords
-sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g"
-/etc/ssh/sshd_config
-service ssh restart
+sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
+service sshd restart
 
 # Change to Japanese locale
 yum -y groupinstall "Japanese Support"
