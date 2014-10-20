@@ -31,3 +31,5 @@ service iptables save
 
 # Install basic tools
 yum install -y gcc gcc-c++ bison flex m4 glibc-devel glibc-devel.i686 zlib-devel git
+
+shutdown -r now
