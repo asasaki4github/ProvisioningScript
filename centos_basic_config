@@ -12,6 +12,9 @@ sed -i.org -e "s/en_US.UTF-8/ja_JP.UTF-8/g" /etc/sysconfig/i18n
 rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+# Install basic tools
+yum install -y gcc gcc-c++ bison flex m4 glibc-devel glibc-devel.i686 zlib-devel git > /tmp/yum.log 2>&1
+
 # Configure Linux Firewall
 # --- CAUTION --- Change to deny access from public address
 iptables -P INPUT DROP
@@ -28,8 +31,5 @@ iptables -A OUTPUT -o eth1 -p tcp --sport 22 -m state --state ESTABLISHED -j ACC
 #iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 #iptables -A INPUT -s 0.0.0.0/0 -d 0.0.0.0/0 -p all -j REJECT
 service iptables save
-
-# Install basic tools
-yum install -y gcc gcc-c++ bison flex m4 glibc-devel glibc-devel.i686 zlib-devel git
 
 shutdown -r now
