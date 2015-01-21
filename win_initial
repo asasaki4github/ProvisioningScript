@@ -5,7 +5,7 @@ REM Date 2015/01/19
 REM Scripted by asasaki4github
 
 systeminfo > C:\systeminfo_result.txt
-ifconfig > C:¥ifconfig_result.txt
+ipconfig > C:¥ifconfig_result.txt
 
 REM Change ExecutionPolicy to RemoteSigned
 powershell Set-ExecutionPolicy RemoteSigned
