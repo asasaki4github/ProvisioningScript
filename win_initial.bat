@@ -1,2 +1,1 @@
-powershell Get-ChildItem > C:/Get-ChildItem.txt
-netsh interface ip add address "PrivateNetwork-A" 192.168.100.1 255.255.255.0
+powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/asasaki4github/ProvisioningScript/master/win_initial_setup.ps1'))"
