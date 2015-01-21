@@ -5,12 +5,13 @@ REM Date 2015/01/19
 REM Scripted by asasaki4github
 
 systeminfo > C:\systeminfo_result.txt
+ifconfig > C:¥ifconfig_result.txt
 
 REM Change ExecutionPolicy to RemoteSigned
 powershell Set-ExecutionPolicy RemoteSigned
+powershell Get-ChildItem > C:\Get-ChildItem.txt
 
 REM Execute PowerShell File (.ps1)
-powershell http://www.example.com/MyScript/testps.ps1
+powershell https://raw.githubusercontent.com/asasaki4github/ProvisioningScript/master/win_initial_setup.ps1
 
 REM Change ExecutionPolicy to Restricted
-powershell Set-ExecutionPolicy Restricted
