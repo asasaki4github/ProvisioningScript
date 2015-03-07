@@ -1,37 +1,32 @@
 #!/bin/bash
 
+# === パスワードによる認証を禁止
 # Disable tunnelled clear text passwords
-# sed -i.org -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
-#service sshd restart
+sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
+service ssh restart
 
-# yum update
-sudo yum -y update
-
+# === 日本語ロケールへ変更
 # Change to Japanese locale
-sudo yum -y groupinstall "Japanese Support"
+yum -y groupinstall "Japanese Support"
+sed -i.org -e "s/en_US.UTF-8/ja_JP.UTF-8/g" /etc/sysconfig/i18n
 
+# === タイムゾーンを日本標準時へ変更
 # Change to JST time zone
-sudo rm -f /etc/localtime
-sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# Install basic tools
-# yum install -y gcc gcc-c++ bison flex m4 glibc-devel glibc-devel.i686 zlib-devel git > /tmp/yum.log 2>&1
-
+#=== ＯＳファイアウォールの設定
 # Configure Linux Firewall
 # --- CAUTION --- Change to deny access from public address
-sudo iptables -P INPUT DROP
-sudo iptables -P FORWARD DROP
-sudo iptables -P OUTPUT DROP
-sudo iptables -A INPUT -i lo -j ACCEPT
-sudo iptables -A OUTPUT -o lo -j ACCEPT
-sudo iptables -A INPUT -i eth1 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-sudo iptables -A OUTPUT -o eth1 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
-sudo iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT
-#sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-sudo iptables -A INPUT -p icmp -j ACCEPT
-sudo iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
-sudo iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
-#iptables -A INPUT -s 0.0.0.0/0 -d 0.0.0.0/0 -p all -j REJECT
-sudo service iptables save
+# iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT
+# iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+# iptables -A INPUT -p icmp -j ACCEPT
+# iptables -A INPUT -i lo -j ACCEPT
+#iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+#iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+# iptables -A INPUT -s 0.0.0.0/0 -d 0.0.0.0/0 -p all -j REJECT
+#service iptables save
 
-sudo shutdown -r now
+#=== 基本ツールのインストール
+# Install basic tools
+# yum install -y emacs.x86_64 git-all.noarch
