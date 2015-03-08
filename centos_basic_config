@@ -4,7 +4,7 @@
 # Disable tunnelled clear text passwords
 echo "set number" >> ~/.exrc
 sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
-sed -i.org -e "s/PasswordAuthentication yes/#PasswordAuthentication yes/g” /etc/ssh/sshd_config
+sed -i.org -e "s/PasswordAuthentication yes/#PasswordAuthentication yes/g" /etc/ssh/sshd_config
 service ssh restart
 
 # === 日本語ロケールへ変更
