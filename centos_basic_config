@@ -2,7 +2,9 @@
 
 # === パスワードによる認証を禁止
 # Disable tunnelled clear text passwords
+echo "set number" >> ~/.exrc
 sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
+sed -i.org -e "s/PasswordAuthentication yes/#PasswordAuthentication yes/g” /etc/ssh/sshd_config
 service ssh restart
 
 # === 日本語ロケールへ変更
@@ -30,3 +32,4 @@ ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #=== 基本ツールのインストール
 # Install basic tools
 # yum install -y emacs.x86_64 git-all.noarch
+yum update -y
