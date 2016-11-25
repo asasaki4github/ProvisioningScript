@@ -5,7 +5,7 @@ sed -i.org -e "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/s
 service ssh restart
 
 # Change to Japanese locale
-aptitude -y install language-pack-ja-base language-pack-ja
+apt-get -y install language-pack-ja-base language-pack-ja
 update-locale LANG=ja_JP.UTF-8 LANGUAGE="ja_JP:ja"
 #apt-get install language-pack-ja=1:14.04+20140410
 
